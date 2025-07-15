@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 import Webcam from "react-webcam";
+import QuestionPanel from "./components/QuestionPanel";
 
 export default function App() {
   const [receipt, setReceipt] = useState(null);
@@ -49,7 +50,7 @@ export default function App() {
     fd.append("file", blobToSend, blobToSend.name || "receipt.png");
 
     try {
-      const res = await axios.post("http://localhost:5000/upload", fd);
+      const res = await axios.post("http://localhost:5001/upload", fd);
       setReceipt(res.data.receipt);
     } catch (err) {
       console.error("Upload failed:", err.response?.data || err.message);
@@ -116,6 +117,9 @@ export default function App() {
           </ul>
         </section>
       )}
+
+<QuestionPanel />
+
     </div>
   );
 }
